@@ -1,0 +1,8 @@
+WITH T as (Select e.salary Salary,e.name Employee,d.name Department 
+           from Employee e INNER JOIN Department d
+           ON e.departmentId=d.id)
+SELECT Department,Employee,Salary FROM
+T AS T_OUT WHERE 2>=(SELECT COUNT(DISTINCT T_IN.Salary) FROM T T_IN
+           WHERE T_IN.Salary>T_OUT.Salary
+                    AND T_IN.Department=T_OUT.Department )
+ORDER BY Salary DESC;
